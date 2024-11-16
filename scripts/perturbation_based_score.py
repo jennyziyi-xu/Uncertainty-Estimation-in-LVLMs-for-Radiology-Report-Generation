@@ -48,19 +48,13 @@ if __name__=="__main__":
     args = parse_args()
     T=int(args.number_inferences)
 
-    print("Input dir is: ", args.input_dir)
-    print("Output file is: ", args.output_path)
-
     assert args.flag_type in ["max", "min", "maxDiff"]
 
     all_rows = []
 
     f_0 = pd.read_csv(args.inference_0)
-
     f_1 = pd.read_csv(args.input_dir + "/inference_1.csv")
-
     f_2 = pd.read_csv(args.input_dir + "/inference_2.csv")
-
     f_3 = pd.read_csv(args.input_dir + "/inference_3.csv")
 
     study_ids = f_0['study_id'].values

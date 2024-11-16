@@ -10,7 +10,6 @@ from radgraph_evaluate_model import generate_radgraph
 
 
 radgraph_model_checkpoint = "/path/"
-
 inference_file = "/path/"
 uq_scores_file = "/path/"
 new_uq_file = "/path/"

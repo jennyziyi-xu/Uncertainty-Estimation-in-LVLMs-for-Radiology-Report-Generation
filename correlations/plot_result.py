@@ -54,7 +54,6 @@ if __name__ == "__main__":
     sorted_df_metrics = df_metrics.sort_values(by='data_id', ignore_index = True)
 
     all_uq = {}
-
     all_data_ids  = {}
 
     # Read the input_uq file
@@ -109,8 +108,6 @@ if __name__ == "__main__":
         all_uq["MaxDiffVR"] = df_max_diff['max_diff_pert_VR']
         all_uq["MaxDiffVRO"] = df_max_diff['max_diff_pert_VRO']
 
-    
-
     bertscore = sorted_df_metrics['bertscore'].values
     bleu2score = sorted_df_metrics['bleu2_score'].values
     bleu3score = sorted_df_metrics['bleu3_score'].values
@@ -118,15 +115,11 @@ if __name__ == "__main__":
     sembscore = sorted_df_metrics['semb_score'].values
     radgraph_combined = sorted_df_metrics['radgraph_combined'].values
     radcliq = sorted_df_metrics['RadCliQ'].values
-
     
     all_metrics = {"BertScore": bertscore, "Blue2Score": bleu2score, "Blue3Score": bleu3score, "Blue4Score": bleu4score, "sembScore": sembscore, "RadGraph": radgraph_combined, "RadCliQ": radcliq}
 
-
     for (x_label, metric) in all_metrics.items():
-        print(x_label)
         for (y_label, uq_score) in all_uq.items():
-            
             assert len(metric) == len(uq_score)
             metric_new = []
             uq_score_new = []
@@ -135,14 +128,11 @@ if __name__ == "__main__":
                     metric_new.append(x)
                     uq_score_new.append(y)
             assert len(metric_new) == len(uq_score_new)
-
-            print("length of metric_new is", len(metric_new))
             
             # compute pearson correlation coeff.
             correlation_matrix = np.corrcoef(metric_new, uq_score_new)
             pearson_coeff = round(correlation_matrix[0, 1],3)
-            
-            print(y_label, pearson_coeff)
+            print(x_label, y_label, pearson_coeff)
 
             plt.figure(figsize=(5, 5))  
             sns.regplot(x = metric_new, y = uq_score_new)

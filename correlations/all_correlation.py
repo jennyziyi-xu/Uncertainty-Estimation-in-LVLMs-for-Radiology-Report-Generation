@@ -16,7 +16,6 @@ def parse_args():
     args = parser.parse_args()
     return args 
 
-
 def check_study_subject_id(df_eval, df_uq):
     study_ids = df_eval['study_id'].values
     subject_ids = df_eval['subject_id'].values
@@ -45,7 +44,6 @@ def check_data_id(df_eval, df_uq):
             df_uq = df_uq[~(df_uq['data_id'] == data_id)]
     return (df_eval, df_uq)
 
-
 if __name__ == "__main__":
 
     args = parse_args()
@@ -54,7 +52,6 @@ if __name__ == "__main__":
     sorted_df_metrics = df_metrics.sort_values(by='data_id', ignore_index = True)
 
     all_uq = {}
-
     all_data_ids  = {}
 
     if args.input_uq:
@@ -97,7 +94,6 @@ if __name__ == "__main__":
         print("Adding MinPertVR, MinPertVRO")
         all_uq["MinPertVR"] = df_min_pert_uq['min_pert_VR']
         all_uq["MinPertVRO"] = df_min_pert_uq['min_pert_VRO']
-        # all_data_ids["min_data_id"] = df_min_pert_uq['data_id']
 
     if args.max_diff_pert_uq:
         df_max_diff = pd.read_csv(args.max_diff_pert_uq)
@@ -109,7 +105,6 @@ if __name__ == "__main__":
         all_uq["MaxDiffVR"] = df_max_diff['max_diff_pert_VR']
         all_uq["MaxDiffVRO"] = df_max_diff['max_diff_pert_VRO']
 
-
     bertscore = sorted_df_metrics['bertscore'].values
     bleu2score = sorted_df_metrics['bleu2_score'].values
     bleu3score = sorted_df_metrics['bleu3_score'].values
@@ -117,15 +112,14 @@ if __name__ == "__main__":
     sembscore = sorted_df_metrics['semb_score'].values
     radgraph_combined = sorted_df_metrics['radgraph_combined'].values
     radcliq = sorted_df_metrics['RadCliQ'].values
-
     
     all_metrics = {"BertScore": bertscore, 
-    "Blue2Score": bleu2score, 
-    "Blue3Score": bleu3score, 
-    "Blue4Score": bleu4score,
-     "sembScore": sembscore, 
-     "RadGraph": radgraph_combined, 
-     "RadCliQ": radcliq}
+                    "Blue2Score": bleu2score, 
+                    "Blue3Score": bleu3score, 
+                    "Blue4Score": bleu4score,
+                    "sembScore": sembscore, 
+                    "RadGraph": radgraph_combined, 
+                    "RadCliQ": radcliq}
 
     metric_selected = "RadGraph"
     uq_selected = 'AvgEntropy'
@@ -138,7 +132,6 @@ if __name__ == "__main__":
     pearson_co = []
     spearman_co = []
     kendall_co = []
-
 
     smallest_p_value = -np.inf
 
